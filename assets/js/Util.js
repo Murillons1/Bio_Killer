@@ -6,6 +6,7 @@ class Obj {
         this.h = h
         this.at = at
     }
+
     des_obj(){
         let img = new Image()
         img.src = this.at
@@ -13,7 +14,7 @@ class Obj {
     }
 }
 
-class Bee extends Obj{
+class Robb extends Obj{
     dir = 0
     pts = 0
     vidas = 3
@@ -54,7 +55,11 @@ class BG extends Obj {
     }
 }
 
-class Player extends Obj {
+class Lacaio extends Obj {
+
+}
+
+class Planta extends Obj {
 
 }
 

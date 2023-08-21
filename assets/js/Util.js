@@ -46,7 +46,12 @@ class Bee extends Obj{
 }
 
 class BG extends Obj {
-    
+    mov(inicio,fim){
+        this.x +=1
+        if(this.x > fim){
+            this.x = inicio
+        }
+    }
 }
 
 class Player extends Obj {

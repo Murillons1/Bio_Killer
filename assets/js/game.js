@@ -1,6 +1,6 @@
 const des = document.getElementById('des').getContext('2d')
-let bg = new Bg(0,0,500,700,)
-let bg2 = new Bg(0,-700,500,700,)
+
+let bg = new BG(0,0,500,700,'./assets/img/background/winter_3/11.png')
 let planta = new Planta(0,0,50,50,)
 let lacaio = new Lacaio(200,500,100,100)
 let robb = new Robb(200,500,100,100)
@@ -61,8 +61,7 @@ document.addEventListener('keyup', (event)=>{
     }
 })
 function desenha(){
-    bg.desenha_obj()
-    bg2.desenha_obj()
+    bg1.desenha_obj()
     if(jogar){        
         robb.desenha_obj()
         lacaio.desenha_obj()
@@ -90,8 +89,7 @@ function tiro(){
 
 
 function atualiza(){
-    bg.move(3,700,0)
-    bg2.move(3,0,-700)
+    bg.mov(-500,800)
     if(jogar){
         robb.move()
         robb.anim('robb')

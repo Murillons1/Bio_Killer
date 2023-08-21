@@ -13,7 +13,7 @@ class Obj {
     }
 }
 
-class Bee extends Obj{
+class Robb extends Obj{
     dir = 0
     pts = 0
     vidas = 3

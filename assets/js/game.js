@@ -4,7 +4,10 @@ let bg2 = new Bg(0,-700,500,700,)
 let planta = new Planta(0,0,50,50,)
 let lacaio = new Lacaio(200,500,100,100)
 let robb = new Robb(200,500,100,100)
-
+let texto_pontos = new Texto()
+let texto_vidas = new Texto()
+let val_pts = new Texto()
+let val_vidas = new Texto()
 
 document.addEventListener('keydown', (event)=>{
     if(event.key === 'a'){
@@ -67,6 +70,10 @@ function desenha(){
         robb.desenha_obj()
         lacaio.desenha_obj()
         planta.desenha_obj()
+        texto_pontos.des_texto('Pontos: ',326,40, 'orange','30px Times')
+        texto_vidas.des_texto('Vidas: ',40,40, 'green','30px Times')
+        val_pts.des_texto(robb.pts,420,40, 'white','30px Times')
+        val_vidas.des_texto(robb.vidas,120,40, 'white','30px Times')
     }
 }
 // colisao
@@ -82,7 +89,13 @@ function colisao(){
 }
 
 function pontos(){
-
+    if(robb.point(lacaio)){
+        robb.pts +=1
+    }else if(robb.point(lacaio)){
+        robb.pts +=1
+    }else if(robb.point(lacaio)){
+        robb.pts +=1
+    }
 }
 function tiro(){
 
@@ -100,6 +113,7 @@ function atualiza(){
         planta.move()
         planta.anim('planta')
         colisao()
+        pontos()
     }
     
 }

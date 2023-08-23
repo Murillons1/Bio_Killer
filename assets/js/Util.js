@@ -32,7 +32,8 @@ class Robb extends Obj{
     dir_x = 0
     dir_y = 0
     pts = 0
-    vidas = 3
+    vida = 3
+    municao = 30
 
     move(){
         // EIXO X
@@ -48,8 +49,8 @@ class Robb extends Obj{
         console.log(this.y)
         if(this.y <= 0){
             this.y = 0
-        }else if (this.y >= 390){
-            this.y = 390
+        }else if (this.y >= 370){
+            this.y = 370
         }
     }
 
@@ -68,15 +69,8 @@ class Robb extends Obj{
 }
 
 class BG extends Obj {
-    mov(inicio,fim){
-        this.x +=1
-        if(this.x > fim){
-            this.x = inicio
-        }
-    }
-
-    mov1(inicio,fim){
-        this.x += 4
+    move(inicio,fim){
+        this.x +=5
         if(this.x > fim){
             this.x = inicio
         }
@@ -85,11 +79,32 @@ class BG extends Obj {
 
 class Lacaio extends Obj {
 
-    move(){
-        this.x -= 3
+    move_lacaio(){
+        this.x -= 5
         if(this.x <= 0){
             this.x = 770
             this.y = Math.random() * (400 - 0) 
+        }
+    }
+    move_star(){
+        this.x += 15
+        if(this.x >= 770){
+            this.x = 770
+            this.y = Math.random() * (400 - 0) 
+        }
+    }
+    move_urso(){
+        this.x -= 7
+        if(this.x <= 0){
+            this.x = 770
+            this.y = Math.random() * (500 - 0) 
+        }
+    }
+    move_radio(){
+        this.x -= 2
+        if(this.x <= 0){
+            this.x = 770
+            this.y = Math.random() * (700 - 0) 
         }
     }
     
@@ -105,7 +120,7 @@ class Tiro extends Obj{
         des.fillRect(this.x, this.y, this.w, this.h)
     }
 
-    mov(){
+    move_tiro(){
         this.x += 10
     }
     // acrescentado, verificar
@@ -129,8 +144,8 @@ class Texto{
 }
 
 class Planta extends Obj {
-    move(){
-        this.x -= 1
+    move_planta(){
+        this.x -= 0.5
         if(this.x <= 0){
             this.x = 770
             this.y = Math.random() * (400 - 0) 

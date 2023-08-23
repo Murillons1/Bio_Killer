@@ -5,10 +5,12 @@
     const bg2 = new BG(0,0,800,500,'./assets/img/background/nature_1/2.png')
     const bg3 = new BG(0,0,800,500,'./assets/img/background/nature_1/3.png')
     const bg4 = new BG(0,0,800,500,'./assets/img/background/nature_1/4.png')
-    const bg5 = new BG(0,0,800,500,'./assets/img/background/sky_3/7.png')
+    const star = new Lacaio(0,0,64,54,'./assets/img/player/lacaio/star.png')
     const bg6 = new BG(0,0,800,500,'./assets/img/background/sky_3/4.png')
-    let robb = new Robb(0,390,64,110,'./assets/img/player/Raider_1/robb1.png')
+    let robb = new Robb(0,370,110,128,'./assets/img/player/lacaio/robb.png')
     let lacaio = new Lacaio(0,0,80,100,'./assets/img/player/lacaio/lacaio.png')
+    let urso = new Lacaio(0,0,100,100,'./assets/img/player/lacaio/urso.png')
+    let radioativo = new Lacaio(0,0,60,60,'./assets/img/player/lacaio/radiation.png')
     let planta = new Planta(0,0,80,80,'./assets/img/player/lacaio/cogumelo.png')
     let txt_pts = new Texto()
     let pts = new Texto()
@@ -60,7 +62,6 @@
             let tiro = new Tiro(robb.x - 4 + robb.w / 2, robb.y, 8, 16, 'yellow')
             grupoTiros.push(tiro)
         }
-        som1.play()
     })
 
     function pontos(){
@@ -93,10 +94,12 @@
         bg2.des_obj()
         bg3.des_obj()
         bg4.des_obj()
-        bg5.des_obj()
+        star.des_obj()
         bg6.des_obj()
         robb.des_obj()
         lacaio.des_obj()
+        urso.des_obj()
+        radioativo.des_obj()
         planta.des_obj()
         grupoTiros.forEach((tiro)=>{
             tiro.des_tiro()
@@ -124,17 +127,24 @@
 
     function atualiza(){
         robb.move()
-        lacaio.move()
-        planta.move()
+        lacaio.move_lacaio()
+        radioativo.move_radio()
+        urso.move_urso()
+        planta.move_planta()
         robb.anim('robb')
-        bg1.mov(-500,800)
-        bg5.mov1(-1000,800)
+        star.move_star()
         grupoTiros.forEach((tiro)=>{
             tiro.mov()
             if(tiro.y <= -50){
                 grupoTiros.splice(tiro[0],1)
             }
         })
+        txt_pts.des_text('Pontos : ',20,40,'white','30px Times')
+        pts.des_text(robb.pts,120,40,'white','30px Times')
+        txt_vidas.des_text('Vidas : ',300,40,'white','30px Times')
+        n_vidas.des_text(robb.vida,390,40,'white','30px Times')
+        txt_municao.des_text('Munição:',600,40,'white','30px Times')
+        municao.des_text(robb.municao,720,40,'white','30px Times')
     }
 
     function main(){

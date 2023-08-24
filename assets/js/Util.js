@@ -80,37 +80,30 @@ class BG extends Obj {
 class Lacaio extends Obj {
 
     move_lacaio(){
-        this.x -= 5
+        this.x -= 3
         if(this.x <= 0){
             this.x = 770
-            this.y = Math.random() * (400 - 0) 
-        }
-    }
-    move_star(){
-        this.x += 15
-        if(this.x >= 770){
-            this.x = 770
-            this.y = Math.random() * (400 - 0) 
+            this.y = Math.random() * (370 - 0) 
         }
     }
     move_urso(){
-        this.x -= 7
+        this.x -= 4
         if(this.x <= 0){
             this.x = 770
-            this.y = Math.random() * (500 - 0) 
+            this.y = Math.random() * (370 - 0) 
         }
     }
     move_radio(){
         this.x -= 2
         if(this.x <= 0){
             this.x = 770
-            this.y = Math.random() * (700 - 0) 
+            this.y = Math.random() * (370 - 0) 
         }
     }
     
     recomeca(){
         this.y = -200
-        this.x = Math.random() * (400 - 0) 
+        this.x = Math.random() * (370 - 0) 
     }
 }
 

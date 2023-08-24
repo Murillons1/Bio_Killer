@@ -36,36 +36,36 @@ class Robb extends Obj{
     municao = 30
 
     move(){
-        // EIXO X
         this.x += this.dir_x
-        console.log(this.x)
         if(this.x <= -5){
             this.x = -5
         }else if(this.x >= 740){
             this.x = 740
         }
-        // EIXO Y
         this.y += this.dir_y
-        console.log(this.y)
         if(this.y <= 0){
             this.y = 0
         }else if (this.y >= 370){
             this.y = 370
         }
     }
-
-    
     colid(objeto){
-        if((this.x < objeto.x + objeto.width)&&
-            (this.x + this.width > objeto.x)&&
-            (this.y < objeto.y + objeto.height)&&
-            (this.y + this.height > objeto.y)){
+        if((this.x < objeto.x + objeto.w)&&
+            (this.x + this.w > objeto.x)&&
+            (this.y < objeto.y + objeto.h)&&
+            (this.y + this.h > objeto.y)){
             return true       
         }else{
             return false
         }     
     }
-    
+    point(objeto){
+        if(this.y + this.h < objeto.y){
+            return true
+        }else{
+            return false
+        }
+    }
 }
 
 class BG extends Obj {
@@ -112,7 +112,6 @@ class Tiro extends Obj{
         des.fillStyle = this.at
         des.fillRect(this.x, this.y, this.w, this.h)
     }
-
     move_tiro(){
         this.x += 10
     }
@@ -125,6 +124,13 @@ class Tiro extends Obj{
             this.y < objeto.y + objeto.h &&
             this.y + this.h > objeto.y
         )
+    }
+    point(objeto){
+        if(this.y + this.h < objeto.y){
+            return true
+        }else{
+            return false
+        }
     }
 }
 

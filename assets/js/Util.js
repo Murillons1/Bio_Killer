@@ -105,6 +105,13 @@ class Lacaio extends Obj {
         this.y = -200
         this.x = Math.random() * (370 - 0) 
     }
+
+    morrer() {
+        this.y = -800; // Por exemplo, mova-o para uma posição fora da tela
+        this.x = -800;
+        console.log("O lacaio morreu!");
+        // Outras ações para lidar com a morte do lacaio
+    }
 }
 
 class Tiro extends Obj{
@@ -124,13 +131,6 @@ class Tiro extends Obj{
             this.y < objeto.y + objeto.h &&
             this.y + this.h > objeto.y
         )
-    }
-    point(objeto){
-        if(this.y + this.h < objeto.y){
-            return true
-        }else{
-            return false
-        }
     }
 }
 

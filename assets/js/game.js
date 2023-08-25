@@ -6,6 +6,7 @@
     const bg3 = new BG(0,0,800,500,'./assets/img/background/nature_1/3.png')
     const bg4 = new BG(0,0,800,500,'./assets/img/background/nature_1/4.png')
     const bg6 = new BG(0,0,800,500,'./assets/img/background/sky_3/4.png')
+    const earth = new BG(0,0,800,500,'./assets/img/background/sky_3/7.png')
     let robb = new Robb(0,370,110,128,'./assets/img/player/lacaio/robb.png')
     let lacaio = new Lacaio(0,0,80,100,'./assets/img/player/lacaio/lacaio.png')
     let urso = new Lacaio(0,0,100,100,'./assets/img/player/lacaio/urso.png')
@@ -64,28 +65,13 @@
         if (ev.key === 'l') {
             let tiro = new Tiro(robb.x - 4 + robb.w / 2, robb.y + 37, 8, 4, 'yellow')
             grupoTiros.push(tiro)
+            robb.municao -= 1
         }
     })
 
     function pontos(){
         
     }
-
-    function tiros_robb() {
-        for (let i = 0; i < grupoTiros.length; i++) {
-            for (let j = 0; j < discos.length; j++) {
-                if (grupoTiros[i].colid(discos[j])) {
-                    // Se houver colisão, remove o tiro e o disco do jogo
-                    grupoTiros.splice(i, 1)
-                    discos.splice(j, 1)
-    
-                    // Incrementa os pontos do jogador
-                    robb.pts += 1
-                }
-            }
-        }
-    }
-
     
     function colisao(){
         if(robb.colid(lacaio)){
@@ -105,49 +91,68 @@
             robb.vida +=1
         }
     }
-    
-    function pontos(){
-        if(grupoTiros.point(lacaio)){
-            robb.pts +=1
-        }else if(grupoTiros.point(urso)){
-            robb.pts +=1
-        }else if(grupoTiros.point(radioativo)){
-            robb.pts +=1
-        }
-    }
+
     function tiro(){
         
     }
 
     function game_over(){
-        if(bee.vidas <= 0){
+        if(robb.vida <= 0){
             jogar = false
         }
     }
-    
+
+    function verificarColisaoTiroLacaio(tiro, lacaio) {
+        return (
+            tiro.x < lacaio.x + lacaio.w &&
+            tiro.x + tiro.w > lacaio.x &&
+            tiro.y < lacaio.y + lacaio.h &&
+            tiro.y + tiro.h > lacaio.y
+        );
+    }
+    function verificarColisaoTiroUrso(tiro, urso) {
+        return (
+            tiro.x < urso.x + urso.w &&
+            tiro.x + tiro.w > urso.x &&
+            tiro.y < urso.y + urso.h &&
+            tiro.y + tiro.h > urso.y
+        );
+    }
+    function verificarColisaoTiroRadioativo(tiro, radioativo) {
+        return (
+            tiro.x < radioativo.x + radioativo.w &&
+            tiro.x + tiro.w > radioativo.x &&
+            tiro.y < radioativo.y + radioativo.h &&
+            tiro.y + tiro.h > radioativo.y
+        );
+    }
+
     function desenha(){
-        bg1.des_obj()
-        bg2.des_obj()
-        bg3.des_obj()
-        bg4.des_obj()
-        bg6.des_obj()
+       if(jogar === true){
+            bg1.des_obj()
+            bg2.des_obj()
+            bg3.des_obj()
+            bg4.des_obj()
+            bg6.des_obj()
+            earth.des_obj()
 
-        robb.des_obj()
-        lacaio.des_obj()
-        urso.des_obj()
-        radioativo.des_obj()
-        planta.des_obj()
+            robb.des_obj()
+            lacaio.des_obj()
+            urso.des_obj()
+            radioativo.des_obj()
+            planta.des_obj()
 
-        grupoTiros.forEach((tiro)=>{
-            tiro.des_tiro()
-        })
+            grupoTiros.forEach((tiro)=>{
+                tiro.des_tiro()
+            })
 
-        txt_pts.des_text('Pontos : ',20,40,'white','30px Times')
-        pts.des_text(robb.pts,120,40,'white','30px Times')
-        txt_vidas.des_text('Vidas : ',300,40,'white','30px Times')
-        vida.des_text(robb.vida,390,40,'white','30px Times')
-        txt_municao.des_text('Munição:',600,40,'white','30px Times')
-        municao.des_text(robb.municao,720,40,'white','30px Times')    
+            txt_pts.des_text('Pontos : ',20,40,'white','30px Times')
+            pts.des_text(robb.pts,120,40,'white','30px Times')
+            txt_vidas.des_text('Vidas : ',300,40,'white','30px Times')
+            vida.des_text(robb.vida,390,40,'white','30px Times')
+            txt_municao.des_text('Munição:',600,40,'white','30px Times')
+            municao.des_text(robb.municao,720,40,'white','30px Times')    
+       }
     }
     
     function atualiza(){
@@ -157,13 +162,37 @@
         urso.move_urso()
         planta.move_planta()
         robb.anim('robb')
-        grupoTiros.forEach((tiro)=>{
+        earth.move(-500,800)
+
+        grupoTiros.forEach((tiro) => {
             tiro.move_tiro()
             if(tiro.y <= -50){
                 grupoTiros.splice(tiro[0],1)
             }
-        })
+            // Verificar colisão com o lacaio
+            if (verificarColisaoTiroLacaio(tiro, lacaio)) {
+                lacaio.morrer();  // Chamando a função "morrer" do lacaio
+                grupoTiros.splice(grupoTiros.indexOf(tiro), 1); // Removendo o tiro
+                robb.pts += 1
+            }
+            // Verificar colisão com o urso
+            if (verificarColisaoTiroLacaio(tiro, urso)) {
+                urso.morrer();  // Chamando a função "morrer" do lacaio
+                grupoTiros.splice(grupoTiros.indexOf(tiro), 1); // Removendo o tiro
+                robb.pts += 1
+            }
+            // Verificar colisão com o radioativo
+            if (verificarColisaoTiroLacaio(tiro, radioativo)) {
+                radioativo.morrer();  // Chamando a função "morrer" do lacaio
+                grupoTiros.splice(grupoTiros.indexOf(tiro), 1); // Removendo o tiro
+                robb.pts += 1
+            }
+            if (tiro.y <= -50) {
+                grupoTiros.splice(grupoTiros.indexOf(tiro), 1);
+            }
+        });
         colisao()
+        game_over()
        }
 
     function main(){

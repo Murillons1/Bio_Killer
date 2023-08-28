@@ -30,13 +30,12 @@
     const som3 = new Audio("assets/som/urso.wav")
     const som4 = new Audio("assets/som/zumbi.wav")
     const som5 = new Audio("assets/som/radiacao.ogg")
-    som1.volume = 0.8
+    som1.volume = 0.9
     som1.loop = true
-    som2.volume = 0.5
-    som3.volume = 0.6
-    som4.volume = 0.6
-    som5.volume = 0.6
-
+    som2.volume = 0.7
+    som3.volume = 0.7
+    som4.volume = 0.7
+    som5.volume = 0.7
     const grupoTiros = []
 
     let isJumping = false;

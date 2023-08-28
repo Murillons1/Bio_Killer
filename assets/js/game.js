@@ -22,6 +22,7 @@
     let texto_game_over = new Texto()
     
     let jogar = true
+    let dar_tiro = true
 
     const grupoTiros = []
 
@@ -92,10 +93,6 @@
         }
     }
 
-    function tiro(){
-        
-    }
-
     function game_over(){
         if(robb.vida <= 0){
             jogar = false
@@ -164,33 +161,37 @@
         robb.anim('robb')
         earth.move(-500,800)
 
-        grupoTiros.forEach((tiro) => {
+        if(robb.municao > 0){
+            dar_tiro = true
+        }else{
+            robb.municao = 0
+            dar_tiro = false
+        }
+        
+        grupoTiros.forEach((tiro)=>{
             tiro.move_tiro()
-            if(tiro.y <= -50){
+            if(tiro.y <= -50 || !dar_tiro){
                 grupoTiros.splice(tiro[0],1)
             }
-            // Verificar colisão com o lacaio
-            if (verificarColisaoTiroLacaio(tiro, lacaio)) {
-                lacaio.morrer();  // Chamando a função "morrer" do lacaio
-                grupoTiros.splice(grupoTiros.indexOf(tiro), 1); // Removendo o tiro
+            if(dar_tiro && verificarColisaoTiroLacaio(tiro, lacaio)){
+                lacaio.morrer()
+                grupoTiros.splice(grupoTiros.indexOf(tiro), 1)
                 robb.pts += 1
             }
-            // Verificar colisão com o urso
-            if (verificarColisaoTiroLacaio(tiro, urso)) {
-                urso.morrer();  // Chamando a função "morrer" do lacaio
-                grupoTiros.splice(grupoTiros.indexOf(tiro), 1); // Removendo o tiro
+            if(dar_tiro && verificarColisaoTiroLacaio(tiro, urso)){
+                urso.morrer()
+                grupoTiros.splice(grupoTiros.indexOf(tiro), 1)
                 robb.pts += 1
             }
-            // Verificar colisão com o radioativo
-            if (verificarColisaoTiroLacaio(tiro, radioativo)) {
-                radioativo.morrer();  // Chamando a função "morrer" do lacaio
-                grupoTiros.splice(grupoTiros.indexOf(tiro), 1); // Removendo o tiro
+            if(dar_tiro && verificarColisaoTiroLacaio(tiro, radioativo)){
+                radioativo.morrer()
+                grupoTiros.splice(grupoTiros.indexOf(tiro), 1)
                 robb.pts += 1
             }
-            if (tiro.y <= -50) {
+            if(tiro.y <= -50){
                 grupoTiros.splice(grupoTiros.indexOf(tiro), 1);
             }
-        });
+        })
         colisao()
         game_over()
        }

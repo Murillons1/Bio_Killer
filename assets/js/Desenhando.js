@@ -11,10 +11,16 @@ class Obj {
     }
 
     des_obj(){
-        let img = new Image()
-        img.src = this.at
-        des.drawImage(img,this.x,this.y,this.w,this.h)
+        des.beginPath()
+        des.lineWidth = '5'
+        des.fillStyle = this.atrib
+        des.strokeStyle = 'black'
+        des.rect(this.x-13,this.y-30,this.w-40,this.h-15);
+        des.closePath()
+        des.stroke()
+        des.fill()
     }
+
     anim(nome){
         this.tempo +=1
         if(this.tempo > 12){

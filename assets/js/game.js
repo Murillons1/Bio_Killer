@@ -3,9 +3,7 @@
     // CÉU
     const bg1 = new BG(0,0,800,500,'./assets/img/background/nature_1/1.png')
     const bg2 = new BG(0,0,800,500,'./assets/img/background/nature_1/2.png')
-    const bg3 = new BG(0,0,800,500,'./assets/img/background/nature_1/3.png')
     const bg4 = new BG(0,0,800,500,'./assets/img/background/nature_1/4.png')
-    const bg6 = new BG(0,0,800,500,'./assets/img/background/sky_3/4.png')
     const earth = new BG(0,0,800,500,'./assets/img/background/sky_3/7.png')
     let robb = new Robb(0,370,110,128,'./assets/img/player/lacaio/robb.png')
     let lacaio = new Lacaio(0,0,80,100,'./assets/img/player/lacaio/lacaio.png')
@@ -128,9 +126,7 @@
        if(jogar === true){
             bg1.des_obj()
             bg2.des_obj()
-            bg3.des_obj()
             bg4.des_obj()
-            bg6.des_obj()
             earth.des_obj()
 
             robb.des_obj()

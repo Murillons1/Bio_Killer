@@ -23,6 +23,20 @@
     
     let jogar = true
 
+    // Som
+
+    const som1 = new Audio("assets/som/background.wav")
+    const som2 = new Audio("assets/som/tiro.wav")
+    const som3 = new Audio("assets/som/urso.wav")
+    const som4 = new Audio("assets/som/zumbi.wav")
+    const som5 = new Audio("assets/som/radiacao.ogg")
+    som1.volume = 0.8
+    som1.loop = true
+    som2.volume = 0.5
+    som3.volume = 0.6
+    som4.volume = 0.6
+    som5.volume = 0.6
+
     const grupoTiros = []
 
     let isJumping = false;
@@ -43,6 +57,7 @@
             isJumping = true;  // Define o estado de pulo para verdadeiro
             robb.dir_y -= 10;  // Altere o valor para ajustar a altura do pulo
         }
+        som1.play()
     });
     
     document.addEventListener('keyup', (ev)=>{
@@ -59,6 +74,7 @@
             robb.dir_y = 0;
             isJumping = false;  // Reinicie o estado de pulo quando a tecla é liberada
         }
+        som1.play()
     });
 
     document.addEventListener('keypress', (ev)=>{
@@ -67,6 +83,7 @@
             grupoTiros.push(tiro)
             robb.municao -= 1
         }
+        som2.play()
     })
 
     function pontos(){
@@ -109,6 +126,9 @@
             tiro.y < lacaio.y + lacaio.h &&
             tiro.y + tiro.h > lacaio.y
         );
+        som1.pause()
+        som2.play()
+        som3.play()
     }
     function verificarColisaoTiroUrso(tiro, urso) {
         return (
@@ -117,6 +137,9 @@
             tiro.y < urso.y + urso.h &&
             tiro.y + tiro.h > urso.y
         );
+        som1.pause()
+        som2.play()
+        som4.play()
     }
     function verificarColisaoTiroRadioativo(tiro, radioativo) {
         return (
@@ -125,6 +148,9 @@
             tiro.y < radioativo.y + radioativo.h &&
             tiro.y + tiro.h > radioativo.y
         );
+        som1.pause()
+        som2.play()
+        som5.play
     }
 
     function desenha(){

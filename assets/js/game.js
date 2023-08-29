@@ -21,6 +21,14 @@
     
     let jogar = true
     let dar_tiro = true
+    //fase 2
+    let fase2Ativa = false
+    urso.apareceu = false;
+    urso.aparecer = function() {
+        this.apareceu = true;
+        this.x = 370
+        this.y = 400
+    };
 
     const grupoTiros = []
 
@@ -163,6 +171,11 @@
             robb.municao = 0
             dar_tiro = false
         }
+
+        if (robb.pts >= 10 && !fase2Ativa) {
+            fase2Ativa = true;
+            urso.aparecer();
+        }
         
         grupoTiros.forEach((tiro)=>{
             tiro.move_tiro()
@@ -173,16 +186,25 @@
                 lacaio.morrer()
                 grupoTiros.splice(grupoTiros.indexOf(tiro), 1)
                 robb.pts += 1
+                if (robb.pts >= 10) {
+                    fase2Ativa = true;
+                }
             }
             if(dar_tiro && verificarColisaoTiroLacaio(tiro, urso)){
                 urso.morrer()
                 grupoTiros.splice(grupoTiros.indexOf(tiro), 1)
                 robb.pts += 1
+                if (robb.pts >= 10) {
+                    fase2Ativa = true;
+                }
             }
             if(dar_tiro && verificarColisaoTiroLacaio(tiro, radioativo)){
                 radioativo.morrer()
                 grupoTiros.splice(grupoTiros.indexOf(tiro), 1)
                 robb.pts += 1
+                if (robb.pts >= 10) {
+                    fase2Ativa = true;
+                }
             }
             if(tiro.y <= -50){
                 grupoTiros.splice(grupoTiros.indexOf(tiro), 1);

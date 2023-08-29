@@ -110,7 +110,6 @@ class Lacaio extends Obj {
         this.y = -800; // Por exemplo, mova-o para uma posição fora da tela
         this.x = -800;
         console.log("O lacaio morreu!");
-        // Outras ações para lidar com a morte do lacaio
     }
 }
 

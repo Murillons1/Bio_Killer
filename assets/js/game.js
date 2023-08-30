@@ -22,6 +22,7 @@
     let texto_game_over = new Texto()
     
     let jogar = true
+    let dar_tiro = true
 
     const grupoTiros = []
 
@@ -152,7 +153,10 @@
             vida.des_text(robb.vida,390,40,'white','30px Times')
             txt_municao.des_text('Munição:',600,40,'white','30px Times')
             municao.des_text(robb.municao,720,40,'white','30px Times')    
-       }
+       }else if (jogar === false){
+            texto_game_over.des_text('Game Over',140,260, 'white','100px Times')
+            
+    }
     }
     
     function atualiza(){
@@ -163,26 +167,33 @@
         planta.move_planta()
         robb.anim('robb')
         earth.move(-500,800)
+        game_over()
 
+        if(robb.municao > 0){
+            dar_tiro = true
+        }else{
+            robb.municao = 0
+            dar_tiro = false
+        }
         grupoTiros.forEach((tiro) => {
             tiro.move_tiro()
-            if(tiro.y <= -50){
+            if(tiro.y <= -50 || !dar_tiro){
                 grupoTiros.splice(tiro[0],1)
             }
             // Verificar colisão com o lacaio
-            if (verificarColisaoTiroLacaio(tiro, lacaio)) {
+            if (dar_tiro && verificarColisaoTiroLacaio(tiro, lacaio)) {
                 lacaio.morrer();  // Chamando a função "morrer" do lacaio
                 grupoTiros.splice(grupoTiros.indexOf(tiro), 1); // Removendo o tiro
                 robb.pts += 1
             }
             // Verificar colisão com o urso
-            if (verificarColisaoTiroLacaio(tiro, urso)) {
+            if (dar_tiro && verificarColisaoTiroLacaio(tiro, urso)) {
                 urso.morrer();  // Chamando a função "morrer" do lacaio
                 grupoTiros.splice(grupoTiros.indexOf(tiro), 1); // Removendo o tiro
                 robb.pts += 1
             }
             // Verificar colisão com o radioativo
-            if (verificarColisaoTiroLacaio(tiro, radioativo)) {
+            if (dar_tiro && verificarColisaoTiroLacaio(tiro, radioativo)) {
                 radioativo.morrer();  // Chamando a função "morrer" do lacaio
                 grupoTiros.splice(grupoTiros.indexOf(tiro), 1); // Removendo o tiro
                 robb.pts += 1
@@ -202,3 +213,6 @@
         requestAnimationFrame(main)
     }
     main()
+
+
+    

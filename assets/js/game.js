@@ -56,12 +56,12 @@
         if(ev.key === 's'){
             robb.dir_y += 5;
         }
-        if(ev.key === 'w' && !isJumping){  // Verifique se não está pulando para evitar saltos consecutivos
-            isJumping = true;  // Define o estado de pulo para verdadeiro
-            robb.dir_y -= 10;  // Altere o valor para ajustar a altura do pulo
+        if(ev.key === 'w' && !isJumping){ 
+            isJumping = true
+            robb.dir_y -= 10
         }
         som1.play()
-    });
+    })
     
     document.addEventListener('keyup', (ev)=>{
         if(ev.key === 'a'){
@@ -118,9 +118,6 @@
             tiro.y < lacaio.y + lacaio.h &&
             tiro.y + tiro.h > lacaio.y
         );
-        som1.pause()
-        som2.play()
-        som3.play()
     }
     function verificarColisaoTiroUrso(tiro, urso) {
         return (
@@ -129,9 +126,6 @@
             tiro.y < urso.y + urso.h &&
             tiro.y + tiro.h > urso.y
         );
-        som1.pause()
-        som2.play()
-        som4.play()
     }
     function verificarColisaoTiroRadioativo(tiro, radioativo) {
         return (
@@ -140,9 +134,6 @@
             tiro.y < radioativo.y + radioativo.h &&
             tiro.y + tiro.h > radioativo.y
         );
-        som1.pause()
-        som2.play()
-        som5.play
     }
 
     function desenha(){

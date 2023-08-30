@@ -115,8 +115,9 @@ class Lacaio extends Obj {
 
 class Tiro extends Obj{
     des_tiro(){
-        des.fillStyle = this.at
-        des.fillRect(this.x+45, this.y, this.w, this.h)
+        let img = new Image()
+        img.src = this.at
+        des.drawImage(img,this.x,this.y,this.w,this.h)
     }
     move_tiro(){
         this.x += 10

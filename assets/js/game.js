@@ -7,6 +7,7 @@
     const bg4 = new BG(0,0,800,500,'./assets/img/background/nature_1/4.png')
     const bg6 = new BG(0,0,800,500,'./assets/img/background/sky_3/4.png')
     const earth = new BG(0,0,800,500,'./assets/img/background/sky_3/7.png')
+    const bg7 = new BG(0,0,800,500,'./assets/img/background/fundo.jpg')
     let robb = new Robb(0,370,110,128,'./assets/img/player/lacaio/robb.png')
     let lacaio = new Lacaio(0,0,80,100,'./assets/img/player/lacaio/lacaio.png')
     let urso = new Lacaio(0,0,100,100,'./assets/img/player/lacaio/urso.png')
@@ -20,13 +21,17 @@
     let vida = new Texto()
     let municao = new Texto()
     let texto_game_over = new Texto()
+    let fundo_game_over = new Texto()
     
+
+
     let jogar = true
     let dar_tiro = true
 
     const grupoTiros = []
 
     let isJumping = false;
+
 
     // MOVIMENTO
 
@@ -153,10 +158,13 @@
             vida.des_text(robb.vida,390,40,'white','30px Times')
             txt_municao.des_text('Munição:',600,40,'white','30px Times')
             municao.des_text(robb.municao,720,40,'white','30px Times')    
-       }else if (jogar === false){
-            texto_game_over.des_text('Game Over',140,260, 'white','100px Times')
-            
-    }
+            }
+            else if (jogar === false){
+                bg7.des_obj()
+                texto_game_over.des_text('Game Over',143,263, 'black','102px Times') 
+                fundo_game_over.des_text('Game Over',140,260, 'white','100px Times')
+
+            }
     }
     
     function atualiza(){

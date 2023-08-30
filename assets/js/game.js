@@ -80,7 +80,7 @@
 
     document.addEventListener('keypress', (ev)=>{
         if (ev.key === 'l') {
-            let tiro = new Tiro(robb.x - 4 + robb.w / 2, robb.y + 37, 8, 4, 'yellow')
+            let tiro = new Tiro(robb.x + 40 + robb.w / 2, robb.y + 60, 8, 4, './assets/img/player/lacaio/tiro.png')
             grupoTiros.push(tiro)
             robb.municao -= 1
         }

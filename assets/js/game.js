@@ -83,14 +83,17 @@
             let tiro = new Tiro(robb.x - 4 + robb.w / 2, robb.y + 37, 8, 4, 'yellow')
             grupoTiros.push(tiro)
             robb.municao -= 1
+            som2.play()
         }
-        som2.play()
+        
     })
     
     function colisao(){
         if(robb.colid(lacaio)){
             lacaio.recomeca()
             robb.vida -=1
+            som1.pause
+            som3.play()
         }
         if(robb.colid(planta)){
             planta.recomeca()
@@ -111,9 +114,6 @@
             tiro.y < lacaio.y + lacaio.h &&
             tiro.y + tiro.h > lacaio.y
         );
-        som1.pause()
-        som2.play()
-        som3.play()
     }
     function verificarColisaoTiroUrso(tiro, urso) {
         return (
@@ -122,9 +122,6 @@
             tiro.y < urso.y + urso.h &&
             tiro.y + tiro.h > urso.y
         );
-        som1.pause()
-        som2.play()
-        som4.play()
     }
     function verificarColisaoTiroRadioativo(tiro, radioativo) {
         return (
@@ -133,9 +130,6 @@
             tiro.y < radioativo.y + radioativo.h &&
             tiro.y + tiro.h > radioativo.y
         );
-        som1.pause()
-        som2.play()
-        som5.play
     }
 
     function desenha(){

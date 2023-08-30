@@ -10,6 +10,7 @@
     let urso = new Lacaio(0,0,100,100,'./assets/img/player/lacaio/urso.png')
     let radioativo = new Lacaio(0,0,60,60,'./assets/img/player/lacaio/radioativo.png')
     let planta = new Planta(0,0,80,80,'./assets/img/player/lacaio/cogumelo.png')
+    let energia = new Planta(0,0,80,80,'./assets/img/player/lacaio/municao.png')
     
     let txt_pts = new Texto()
     let txt_vidas = new Texto()
@@ -32,12 +33,13 @@
     const som3 = new Audio("assets/som/urso.wav")
     const som4 = new Audio("assets/som/zumbi.wav")
     const som5 = new Audio("assets/som/radiacao.ogg")
-    som1.volume = 0.9
+    som1.volume = 0.2
     som1.loop = true
-    som2.volume = 0.7
-    som3.volume = 0.7
-    som4.volume = 0.7
-    som5.volume = 0.7
+    som2.volume = 0.5
+    som2.playbackRate = 15.0;
+    som3.volume = 0.9
+    som4.volume = 0.9
+    som5.volume = 0.9
     const grupoTiros = []
 
     let isJumping = false;
@@ -75,7 +77,6 @@
             robb.dir_y = 0;
             isJumping = false;  // Reinicie o estado de pulo quando a tecla é liberada
         }
-        som1.play()
     });
 
     document.addEventListener('keypress', (ev)=>{
@@ -83,18 +84,23 @@
             let tiro = new Tiro(robb.x + 40 + robb.w / 2, robb.y + 60, 8, 4, './assets/img/player/lacaio/tiro.png')
             grupoTiros.push(tiro)
             robb.municao -= 1
+            som2.play()
         }
-        som2.play()
     })
     
     function colisao(){
         if(robb.colid(lacaio)){
             lacaio.recomeca()
             robb.vida -=1
+            som4.play()
         }
         if(robb.colid(planta)){
             planta.recomeca()
             robb.vida +=1
+        }
+        if(robb.colid(energia)){
+            energia.recomeca()
+            robb.municao += 10
         }
     }
 
@@ -105,6 +111,7 @@
     }
 
     function verificarColisaoTiroLacaio(tiro, lacaio) {
+        
         return (
             tiro.x < lacaio.x + lacaio.w &&
             tiro.x + tiro.w > lacaio.x &&
@@ -148,6 +155,7 @@
             robb.des_obj()
             lacaio.des_obj()
             planta.des_obj()
+            energia.des_obj()
 
             grupoTiros.forEach((tiro)=>{
                 tiro.des_tiro()
@@ -165,13 +173,21 @@
                 if (robb.colid(urso)) {
                     urso.recomeca()
                     robb.vida -= 1
+                    som3.play()
                 }
             }
             if (fase === 3) {
                 radioativo.des_obj();
+                urso.des_obj();
                 if (robb.colid(radioativo)) {
                     radioativo.recomeca()
                     robb.vida -= 1
+                    som5.play()
+                }
+                if (robb.colid(urso)) {
+                    urso.recomeca()
+                    robb.vida -= 1
+                    som3.play()
                 }
             }
         }
@@ -183,6 +199,7 @@
         radioativo.move_radio()
         urso.move_urso()
         planta.move_planta()
+        energia.move_energia()
         robb.anim('robb')
         earth.move(-500,800)
 

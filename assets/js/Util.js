@@ -87,14 +87,14 @@ class Lacaio extends Obj {
         }
     }
     move_urso(){
-        this.x -= 4
+        this.x -= 3
         if(this.x <= 0){
             this.x = 770
             this.y = Math.random() * (370 - 0) 
         }
     }
     move_radio(){
-        this.x -= 2
+        this.x -= 5
         if(this.x <= 0){
             this.x = 770
             this.y = Math.random() * (370 - 0) 
@@ -142,6 +142,13 @@ class Texto{
 
 class Planta extends Obj {
     move_planta(){
+        this.x -= 1
+        if(this.x <= 0){
+            this.x = 770
+            this.y = Math.random() * (400 - 0) 
+        }
+    }
+    move_energia(){
         this.x -= 0.5
         if(this.x <= 0){
             this.x = 770

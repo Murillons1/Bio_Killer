@@ -121,9 +121,7 @@ class Tiro extends Obj{
     move_tiro(){
         this.x += 10
     }
-    // acrescentado, verificar
     colid(objeto) {
-        // Verifica colisão entre duas caixas delimitadoras retangulares
         return (
             this.x < objeto.x + objeto.w &&
             this.x + this.w > objeto.x &&

@@ -35,11 +35,10 @@
     som1.volume = 0.9
     som1.loop = true
     som2.volume = 0.7
-    som3.volume = 0.7
+    som3.volume = 0.5
     som4.volume = 0.7
     som5.volume = 0.7
     const grupoTiros = []
-
     let isJumping = false;
 
     // MOVIMENTO

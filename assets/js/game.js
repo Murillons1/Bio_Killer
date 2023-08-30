@@ -3,14 +3,12 @@
     // CÉU
     const bg1 = new BG(0,0,800,500,'./assets/img/background/nature_1/1.png')
     const bg2 = new BG(0,0,800,500,'./assets/img/background/nature_1/2.png')
-    const bg3 = new BG(0,0,800,500,'./assets/img/background/nature_1/3.png')
     const bg4 = new BG(0,0,800,500,'./assets/img/background/nature_1/4.png')
-    const bg6 = new BG(0,0,800,500,'./assets/img/background/sky_3/4.png')
     const earth = new BG(0,0,800,500,'./assets/img/background/sky_3/7.png')
     let robb = new Robb(0,370,110,128,'./assets/img/player/lacaio/robb.png')
     let lacaio = new Lacaio(0,0,80,100,'./assets/img/player/lacaio/lacaio.png')
     let urso = new Lacaio(0,0,100,100,'./assets/img/player/lacaio/urso.png')
-    let radioativo = new Lacaio(0,0,60,60,'./assets/img/player/lacaio/radiation.png')
+    let radioativo = new Lacaio(0,0,60,60,'./assets/img/player/lacaio/radioativo.png')
     let planta = new Planta(0,0,80,80,'./assets/img/player/lacaio/cogumelo.png')
     
     let txt_pts = new Texto()
@@ -22,6 +20,10 @@
     let texto_game_over = new Texto()
     
     let jogar = true
+    let dar_tiro = true
+    let fase = 1; // Controla a fase do jogo
+    let ursoDesenhado = false; 
+    let radioativoDesenhado = false; 
 
     // Som
 
@@ -84,32 +86,16 @@
         }
         som2.play()
     })
-
-    function pontos(){
-        
-    }
     
     function colisao(){
         if(robb.colid(lacaio)){
             lacaio.recomeca()
             robb.vida -=1
         }
-        if(robb.colid(urso)){
-            urso.recomeca()
-            robb.vida -=1
-        }
-        if(robb.colid(radioativo)){
-            radioativo.recomeca()
-            robb.vida -=1
-        }
         if(robb.colid(planta)){
             planta.recomeca()
             robb.vida +=1
         }
-    }
-
-    function tiro(){
-        
     }
 
     function game_over(){
@@ -153,18 +139,14 @@
     }
 
     function desenha(){
-       if(jogar === true){
+        if(jogar === true){
             bg1.des_obj()
             bg2.des_obj()
-            bg3.des_obj()
             bg4.des_obj()
-            bg6.des_obj()
             earth.des_obj()
 
             robb.des_obj()
             lacaio.des_obj()
-            urso.des_obj()
-            radioativo.des_obj()
             planta.des_obj()
 
             grupoTiros.forEach((tiro)=>{
@@ -176,8 +158,23 @@
             txt_vidas.des_text('Vidas : ',300,40,'white','30px Times')
             vida.des_text(robb.vida,390,40,'white','30px Times')
             txt_municao.des_text('Munição:',600,40,'white','30px Times')
-            municao.des_text(robb.municao,720,40,'white','30px Times')    
-       }
+            municao.des_text(robb.municao,720,40,'white','30px Times')
+
+            if (fase === 2) {
+                urso.des_obj();
+                if (robb.colid(urso)) {
+                    urso.recomeca()
+                    robb.vida -= 1
+                }
+            }
+            if (fase === 3) {
+                radioativo.des_obj();
+                if (robb.colid(radioativo)) {
+                    radioativo.recomeca()
+                    robb.vida -= 1
+                }
+            }
+        }
     }
     
     function atualiza(){
@@ -189,33 +186,50 @@
         robb.anim('robb')
         earth.move(-500,800)
 
-        grupoTiros.forEach((tiro) => {
+        if(robb.municao > 0){
+            dar_tiro = true
+        }else{
+            robb.municao = 0
+            dar_tiro = false
+        }
+        
+        if(robb.pts >= 10 && !ursoDesenhado){
+            urso.x = 770;
+            urso.y = Math.random() * (370 - 0)
+            ursoDesenhado = true;
+            fase = 2;
+        }
+        if(robb.pts >= 20 && !radioativoDesenhado) {
+            radioativo.x = 770; 
+            radioativo.y = Math.random() * (370 - 0)
+            radioativoDesenhado = true;
+            fase = 3;
+        }
+        
+        grupoTiros.forEach((tiro)=>{
             tiro.move_tiro()
-            if(tiro.y <= -50){
+            if(tiro.y <= -50 || !dar_tiro){
                 grupoTiros.splice(tiro[0],1)
             }
-            // Verificar colisão com o lacaio
-            if (verificarColisaoTiroLacaio(tiro, lacaio)) {
-                lacaio.morrer();  // Chamando a função "morrer" do lacaio
-                grupoTiros.splice(grupoTiros.indexOf(tiro), 1); // Removendo o tiro
+            if(dar_tiro && verificarColisaoTiroLacaio(tiro, lacaio)){
+                lacaio.morrer()
+                grupoTiros.splice(grupoTiros.indexOf(tiro), 1)
                 robb.pts += 1
             }
-            // Verificar colisão com o urso
-            if (verificarColisaoTiroLacaio(tiro, urso)) {
-                urso.morrer();  // Chamando a função "morrer" do lacaio
-                grupoTiros.splice(grupoTiros.indexOf(tiro), 1); // Removendo o tiro
+            if(dar_tiro && verificarColisaoTiroLacaio(tiro, urso)){
+                urso.morrer()
+                grupoTiros.splice(grupoTiros.indexOf(tiro), 1)
                 robb.pts += 1
             }
-            // Verificar colisão com o radioativo
-            if (verificarColisaoTiroLacaio(tiro, radioativo)) {
-                radioativo.morrer();  // Chamando a função "morrer" do lacaio
-                grupoTiros.splice(grupoTiros.indexOf(tiro), 1); // Removendo o tiro
+            if(dar_tiro && verificarColisaoTiroLacaio(tiro, radioativo)){
+                radioativo.morrer()
+                grupoTiros.splice(grupoTiros.indexOf(tiro), 1)
                 robb.pts += 1
             }
-            if (tiro.y <= -50) {
+            if(tiro.y <= -50){
                 grupoTiros.splice(grupoTiros.indexOf(tiro), 1);
             }
-        });
+        })
         colisao()
         game_over()
        }

@@ -110,21 +110,18 @@ class Lacaio extends Obj {
         this.y = -800; // Por exemplo, mova-o para uma posição fora da tela
         this.x = -800;
         console.log("O lacaio morreu!");
-        // Outras ações para lidar com a morte do lacaio
     }
 }
 
 class Tiro extends Obj{
     des_tiro(){
         des.fillStyle = this.at
-        des.fillRect(this.x, this.y, this.w, this.h)
+        des.fillRect(this.x+45, this.y, this.w, this.h)
     }
     move_tiro(){
         this.x += 10
     }
-    // acrescentado, verificar
     colid(objeto) {
-        // Verifica colisão entre duas caixas delimitadoras retangulares
         return (
             this.x < objeto.x + objeto.w &&
             this.x + this.w > objeto.x &&

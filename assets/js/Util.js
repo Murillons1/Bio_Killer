@@ -35,6 +35,7 @@ class Robb extends Obj{
     vida = 3
     municao = 30
 
+
     move(){
         this.x += this.dir_x
         if(this.x <= -5){

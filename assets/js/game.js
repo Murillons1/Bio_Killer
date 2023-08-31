@@ -21,8 +21,9 @@
     let municao = new Texto()
     let texto_game_over = new Texto()
     let fundo_game_over = new Texto()
-    
-
+    let fim_jogo = new Texto()
+    let fases = new Texto()
+    let txt_fases = new Texto()
 
     let jogar = true
     let dar_tiro = true
@@ -160,11 +161,14 @@
 
             txt_pts.des_text('Pontos : ',20,40,'white','30px Times')
             pts.des_text(robb.pts,120,40,'white','30px Times')
-            txt_vidas.des_text('Vidas : ',300,40,'white','30px Times')
-            vida.des_text(robb.vida,390,40,'white','30px Times')
+            txt_vidas.des_text('Vidas : ',210,40,'white','30px Times')
+            vida.des_text(robb.vida,300,40,'white','30px Times')
             txt_municao.des_text('Munição:',600,40,'white','30px Times')
             municao.des_text(robb.municao,720,40,'white','30px Times')
+            txt_fases.des_text('Fase Atual:',360,40,'red','30px Times')
+            fases.des_text(fase,500,40,'red','30px times')
 
+            
             if (fase === 2) {
                 urso.des_obj();
                 if (robb.colid(urso)) {
@@ -186,6 +190,11 @@
                     robb.vida -= 1
                     som3.play()
                 }
+               if (fase === 4) {
+                  bg7.des_obj()
+                   fim_jogo.des_text('You Win',140,260,'White','100px Times')
+               }   
+
             }
         }            
             else if (jogar === false){
@@ -227,6 +236,10 @@
             radioativo.y = Math.random() * (370 - 0)
             radioativoDesenhado = true;
             fase = 3;
+        }
+       if(robb.pts >= 30){
+           bg7.des_obj()
+            fase = 4;
         }
         
         grupoTiros.forEach((tiro)=>{

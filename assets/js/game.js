@@ -22,6 +22,7 @@
     let texto_game_over = new Texto()
     let fundo_game_over = new Texto()
     let fim_jogo = new Texto()
+    let fundo_fim_jogo = new Texto()
     let fases = new Texto()
     let txt_fases = new Texto()
 
@@ -167,7 +168,6 @@
             municao.des_text(robb.municao,720,40,'white','30px Times')
             txt_fases.des_text('Fase Atual:',360,40,'red','30px Times')
             fases.des_text(fase,500,40,'red','30px times')
-
             
             if (fase === 2) {
                 urso.des_obj();
@@ -177,6 +177,7 @@
                     som3.play()
                 }
             }
+
             if (fase === 3) {
                 radioativo.des_obj();
                 urso.des_obj();
@@ -184,17 +185,15 @@
                     radioativo.recomeca()
                     robb.vida -= 1
                     som5.play()
-                }
-                if (robb.colid(urso)) {
+                }if (robb.colid(urso)) {
                     urso.recomeca()
                     robb.vida -= 1
                     som3.play()
                 }
-               if (fase === 4) {
-                  bg7.des_obj()
-                   fim_jogo.des_text('You Win',140,260,'White','100px Times')
-               }   
-
+            }if (fase === 4) {
+                bg7.des_obj()
+                fim_jogo.des_text('You Win',140,260, 'white','100px Times')
+                fundo_fim_jogo.des_text('You Win',143,263, 'black','103px Times')
             }
         }            
             else if (jogar === false){
@@ -237,8 +236,7 @@
             radioativoDesenhado = true;
             fase = 3;
         }
-       if(robb.pts >= 30){
-           bg7.des_obj()
+        if(robb.pts >= 30){
             fase = 4;
         }
         

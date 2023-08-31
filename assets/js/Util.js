@@ -33,7 +33,7 @@ class Robb extends Obj{
     dir_y = 0
     pts = 0
     vida = 3
-    municao = 30
+    municao = 35
 
 
     move(){

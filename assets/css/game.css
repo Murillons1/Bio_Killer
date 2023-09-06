@@ -1,29 +1,39 @@
 *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-image: radial-gradient(circle at 37.72% -19.64%, #caa600 0, #b9ac00 7.14%, #a7b100 14.29%, #93b600 21.43%, #7eba16 28.57%, #66be2d 35.71%, #47c140 42.86%, #00c353 50%, #00c566 57.14%, #00c779 64.29%, #00c88d 71.43%, #00c9a0 78.57%, #00c9b4 85.71%, #00cac8 92.86%, #00c9db 100%);
-}
-
-#des{
-    border: 1px solid #000;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 100%;
-}
-
-#player{
-    display: none;
-}
-.d{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-.func,.control{
-    width: 20.7vw;
-    height: 60vh;
-    margin-top: 20vh;
-}
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     background-image: radial-gradient(circle at 37.72% -19.64%, #caa600 0, #b9ac00 7.14%, #a7b100 14.29%, #93b600 21.43%, #7eba16 28.57%, #66be2d 35.71%, #47c140 42.86%, #00c353 50%, #00c566 57.14%, #00c779 64.29%, #00c88d 71.43%, #00c9a0 78.57%, #00c9b4 85.71%, #00cac8 92.86%, #00c9db 100%);
+    }
+    
+    #des{
+     border: 1px solid #000;
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     max-width: 100%;
+    }
+    
+    #player{
+     display: none;
+    }
+    .d{
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+    }
+    .func,.control{
+     width: 20.7vw;
+     height: 60vh;
+     margin-top: 20vh;
+    }
+    
+    #reiniciarBotao{
+     font-size: 25px;
+     width: 25vw;
+     height: 10vh;
+     font-weight: bold;
+     font-style: italic;
+     font-family: Verdana;
+     color: white;
+    }

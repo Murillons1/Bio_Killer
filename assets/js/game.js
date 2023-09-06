@@ -1,5 +1,11 @@
     const des = document.getElementById('des').getContext('2d')
 
+    const botaoReiniciar = document.getElementById("reiniciarBotao");
+        botaoReiniciar.addEventListener("click", function(){
+        reiniciarJogo(); // Esta função irá reiniciar o jogo    });
+
+    });
+
     // CÉU
     const bg1 = new BG(0,0,800,500,'./assets/img/background/nature_1/1.png')
     const bg2 = new BG(0,0,800,500,'./assets/img/background/nature_1/2.png')
@@ -114,7 +120,20 @@
     function game_over(){
         if(robb.vida <= 0){
             jogar = false
+            botaoReiniciar.style.display = "block";
+            botaoReiniciar.style.margin = "auto"
+            som1.pause()
         }
+    }
+
+    function reiniciarJogo() {
+        jogar = true;
+        dar_tiro = true;
+        fase = 1;
+        ursoDesenhado = false;
+        radioativoDesenhado = false;
+        robb = new Robb(0, 370, 110, 128, './assets/img/player/lacaio/robb.png');
+        botaoReiniciar.style.display = "none";
     }
 
     function verificarColisaoTiroLacaio(tiro, lacaio) {
@@ -192,8 +211,10 @@
                 }
             }if (fase === 4) {
                 bg7.des_obj()
-                fim_jogo.des_text('You Win',140,260, 'white','100px Times')
-                fundo_fim_jogo.des_text('You Win',143,263, 'black','103px Times')
+                fim_jogo.des_text('You Win',198,263, 'black','102px Times')
+                fundo_fim_jogo.des_text('You Win',203,260, 'white','100px Times')
+                botaoReiniciar.style.display = "block"; // Mostra o botão de reiniciar                
+                botaoReiniciar.style.margin = "auto"
             }
         }            
             else if (jogar === false){
